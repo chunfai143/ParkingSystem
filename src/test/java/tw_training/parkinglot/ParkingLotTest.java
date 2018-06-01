@@ -79,11 +79,13 @@ public class ParkingLotTest {
      */
 	@Test
 	public void givenCarAlreadyPickedFromParkingLot_whenPickCarAgain_thenCannotPickCar() {
-		Car car = new Car("carA");		
+		Car car = new Car("carA");
 		ParkingLot parkingLot = new ParkingLot(1);		
-		ParkingBoy parkingBoy = new NormalParkingBoy(Arrays.asList(parkingLot));		
+		ParkingBoy parkingBoy = new NormalParkingBoy(Arrays.asList(parkingLot));
+		
 		parkingBoy.park(car);
 		parkingBoy.pick("carA");
+		
 		assertNull(parkingBoy.pick("carA"));
 	}
 
@@ -95,7 +97,8 @@ public class ParkingLotTest {
 	@Test
 	public void givenParkingLotWithoutCar_whenPickCar_thenCannotPickCar() {
 		ParkingLot parkingLot = new ParkingLot(1);		
-		ParkingBoy parkingBoy = new NormalParkingBoy(Arrays.asList(parkingLot));		
+		ParkingBoy parkingBoy = new NormalParkingBoy(Arrays.asList(parkingLot));
+		
 		assertNull(parkingBoy.pick("carA"));
 	}
 
@@ -109,9 +112,11 @@ public class ParkingLotTest {
 		Car car1 = new Car("carA");
 		Car car2 = new Car("carB");
 		ParkingLot parkingLot = new ParkingLot(2);		
-		ParkingBoy parkingBoy = new NormalParkingBoy(Arrays.asList(parkingLot));		
+		ParkingBoy parkingBoy = new NormalParkingBoy(Arrays.asList(parkingLot));
+		
 		parkingBoy.park(car1);
 		parkingBoy.park(car2);
+		
 		assertEquals(car1, parkingBoy.pick("carA"));
 		assertEquals(car2, parkingBoy.pick("carB"));
 	}
@@ -128,7 +133,9 @@ public class ParkingLotTest {
 		ParkingLot parkingLotB = new ParkingLot(5);
 		List<ParkingLot> parkingLotList = Arrays.asList(parkingLotA, parkingLotB);
 		ParkingBoy parkingBoy = new SmartParkingBoy(parkingLotList);
+		
 		parkingBoy.park(car1);
+		
 		assertEquals(car1, parkingLotB.pickCar("carA"));
 	}
 	
@@ -146,8 +153,10 @@ public class ParkingLotTest {
 		ParkingLot parkingLotB = new ParkingLot(1);
 		List<ParkingLot> parkingLotList = Arrays.asList(parkingLotA, parkingLotB);
 		ParkingBoy parkingBoy = new SmartParkingBoy(parkingLotList);
+		
 		parkingBoy.park(car1);
 		parkingBoy.park(car2);
+		
 		assertFalse(parkingBoy.park(car3));
 	}
 	
@@ -163,7 +172,9 @@ public class ParkingLotTest {
 		ParkingLot parkingLotB = new ParkingLot(1);
 		List<ParkingLot> parkingLotList = Arrays.asList(parkingLotA, parkingLotB);
 		ParkingBoy parkingBoy = new SmartParkingBoy(parkingLotList);
+		
 		parkingBoy.park(car1);
+		
 		assertEquals(car1, parkingLotA.pickCar("carA"));
 	}
 	
@@ -180,8 +191,10 @@ public class ParkingLotTest {
 		ParkingLot parkingLotB = new ParkingLot(1);
 		List<ParkingLot> parkingLotList = Arrays.asList(parkingLotA, parkingLotB);
 		ParkingBoy parkingBoy = new SmartParkingBoy(parkingLotList);
+		
 		parkingBoy.park(car1);
 		parkingBoy.park(car2);
+		
 		assertEquals(car2, parkingLotB.pickCar("carB"));
 	}
 	
@@ -202,10 +215,12 @@ public class ParkingLotTest {
 		List<ParkingLot> parkingLotList = Arrays.asList(parkingLotA, parkingLotB);
 		ParkingBoy smartParkingBoy = new SmartParkingBoy(parkingLotList);
 		ParkingBoy superParkingBoy = new SuperParkingBoy(parkingLotList);
+		
 		smartParkingBoy.park(car1);
 		smartParkingBoy.park(car2);
 		smartParkingBoy.park(car3);
 		superParkingBoy.park(car4);
+		
 		assertEquals(car4, parkingLotB.pickCar("carD"));
 	}
 	
@@ -223,8 +238,10 @@ public class ParkingLotTest {
 		ParkingLot parkingLotB = new ParkingLot(1);
 		List<ParkingLot> parkingLotList = Arrays.asList(parkingLotA, parkingLotB);
 		ParkingBoy superParkingBoy = new SuperParkingBoy(parkingLotList);
+		
 		superParkingBoy.park(car1);
 		superParkingBoy.park(car2);
+		
 		assertFalse(superParkingBoy.park(car3));
 	}
 	
@@ -242,8 +259,10 @@ public class ParkingLotTest {
 		ParkingLot parkingLotB = new ParkingLot(1);
 		List<ParkingLot> parkingLotList = Arrays.asList(parkingLotB, parkingLotA);
 		ParkingBoy superParkingBoy = new SuperParkingBoy(parkingLotList);
+		
 		superParkingBoy.park(car1);
 		superParkingBoy.park(car2);
+		
 		assertEquals(car2, parkingLotA.pickCar("carB"));
 	}
 	
@@ -261,9 +280,11 @@ public class ParkingLotTest {
 		ParkingLot parkingLotB = new ParkingLot(5);
 		List<ParkingLot> parkingLotList = Arrays.asList(parkingLotA, parkingLotB);
 		ParkingBoy superParkingBoy = new SuperParkingBoy(parkingLotList);
+		
 		superParkingBoy.park(car1);
 		superParkingBoy.park(car2);
 		superParkingBoy.park(car3);
+		
 		assertEquals(car3, parkingLotB.pickCar("carC"));
 	}
 
