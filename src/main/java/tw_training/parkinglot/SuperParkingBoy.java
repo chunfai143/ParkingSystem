@@ -6,6 +6,7 @@ public class SuperParkingBoy extends ParkingBoy {
 
 	public SuperParkingBoy(List<ParkingLot> parkingLotList) {
 		super(parkingLotList);
+		this.rank = 3;
 	}
 
 	@Override

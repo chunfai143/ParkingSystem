@@ -5,18 +5,21 @@ import java.util.List;
 public abstract class ParkingBoy {
 
 	protected List<ParkingLot> parkingLotList;
+	protected int rank = 0;
+	protected int id;
 
 	public ParkingBoy(List<ParkingLot> parkingLotList) {
 		this.parkingLotList = parkingLotList;
+		this.id = this.hashCode();
 	}
 
-	public boolean park(Car car) {
+	public Receipt park(Car car) {
 		prioritizeParkingLot();
 		if (parkingLotList.get(0).isFull()) {
-			return false;
+			return null;
 		}
 		parkingLotList.get(0).parkCar(car);
-		return true;
+		return issueReceipt(car.getCarNumber());
 	}
 
 	public Car pick(String carNumber) {
@@ -29,6 +32,18 @@ public abstract class ParkingBoy {
 		return null;
 	}
 	
+	public int getRank() {
+		return rank;
+	}
+
 	protected abstract void prioritizeParkingLot();
+	
+	public int getId() {
+		return this.id;
+	}
+	
+	protected Receipt issueReceipt(String carNumber) {
+		return new Receipt(carNumber, this.getId());
+	}
 
 }

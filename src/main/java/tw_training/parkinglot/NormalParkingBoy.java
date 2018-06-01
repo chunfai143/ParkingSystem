@@ -6,17 +6,18 @@ public class NormalParkingBoy extends ParkingBoy {
 
 	public NormalParkingBoy(List<ParkingLot> parkingLotList) {
 		super(parkingLotList);
+		this.rank = 1;
 	}
 
 	@Override
-	public boolean park(Car car) {
+	public Receipt park(Car car) {
 		for(ParkingLot parkingLot : parkingLotList) {
 			if (!parkingLot.isFull()) {
 				parkingLot.parkCar(car);
-				return true;
+				return super.issueReceipt(car.getCarNumber());
 			}
 		}
-		return false;
+		return null;
 	}
 
 	@Override

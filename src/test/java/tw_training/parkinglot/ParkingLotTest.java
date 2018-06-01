@@ -2,9 +2,11 @@ package tw_training.parkinglot;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -22,7 +24,7 @@ public class ParkingLotTest {
 		Car car = new Car("carA");		
 		ParkingLot parkingLot = new ParkingLot(1);
 		ParkingBoy parkingBoy = new NormalParkingBoy(Arrays.asList(parkingLot));
-		assertTrue(parkingBoy.park(car));
+		assertNotNull(parkingBoy.park(car));
 	}
 	
 	/**
@@ -51,7 +53,7 @@ public class ParkingLotTest {
 		ParkingLot parkingLot = new ParkingLot(1);
 		ParkingBoy parkingBoy = new NormalParkingBoy(Arrays.asList(parkingLot));
 		parkingBoy.park(car);
-		assertFalse(parkingBoy.park(car));
+		assertNull(parkingBoy.park(car));
 	}
 		
 	/**
@@ -145,7 +147,7 @@ public class ParkingLotTest {
 	 * Then Cannot Park Car
 	 */
 	@Test
-	public void giveAllParkingSlotsHaveNoSpace_whenSmartParkingBoyPark_thenCannotParkCar() {
+	public void givenAllParkingSlotsHaveNoSpace_whenSmartParkingBoyPark_thenCannotParkCar() {
 		Car car1 = new Car("carA");
 		Car car2 = new Car("carB");
 		Car car3 = new Car("carC");
@@ -157,7 +159,7 @@ public class ParkingLotTest {
 		parkingBoy.park(car1);
 		parkingBoy.park(car2);
 		
-		assertFalse(parkingBoy.park(car3));
+		assertNull(parkingBoy.park(car3));
 	}
 	
 	/**
@@ -166,7 +168,7 @@ public class ParkingLotTest {
 	 * Then Car is Parked in Parking Lot A
 	 */
 	@Test
-	public void giveAllParkingSlotsHaveSameSpace_whenSmartParkingBoyPark_thenParkInFirstParkingLot() {
+	public void givenAllParkingSlotsHaveSameSpace_whenSmartParkingBoyPark_thenParkInFirstParkingLot() {
 		Car car1 = new Car("carA");
 		ParkingLot parkingLotA = new ParkingLot(1);
 		ParkingLot parkingLotB = new ParkingLot(1);
@@ -242,7 +244,7 @@ public class ParkingLotTest {
 		superParkingBoy.park(car1);
 		superParkingBoy.park(car2);
 		
-		assertFalse(superParkingBoy.park(car3));
+		assertNull(superParkingBoy.park(car3));
 	}
 	
 	/**
@@ -286,6 +288,24 @@ public class ParkingLotTest {
 		superParkingBoy.park(car3);
 		
 		assertEquals(car3, parkingLotB.pickCar("carC"));
+	}
+	
+	/**
+	 * Given Parking Manager manages no parking boy
+	 * When a Parking Manager park car
+	 * Then car is parked by Parking Manager
+	 */
+	@Test
+	public void givenParkingManagerManagesNoParkingBoy_whenParkingManagerParkCar_thenCarIsParkedByParkingManager() {
+		Car car1 = new Car("carA");
+		ParkingLot parkingLotA = new ParkingLot(5);
+		List<ParkingLot> parkingLotList = Arrays.asList(parkingLotA);
+		ParkingBoy parkingManager = new ParkingManager(parkingLotList, new ArrayList<>());
+		
+		Receipt receipt1 = parkingManager.park(car1);
+		
+		assertEquals("carA", receipt1.getCarNumber());
+		assertEquals(parkingManager.hashCode(), receipt1.getIssuerId());
 	}
 
 }
