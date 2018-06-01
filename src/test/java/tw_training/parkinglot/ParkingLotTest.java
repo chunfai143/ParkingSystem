@@ -154,7 +154,7 @@ public class ParkingLotTest {
 	/**
 	 * Given Parking Lot A B Both have same available slot
 	 * When A Smart Parking Boy park car
-	 * Then Car is Parking in Parking Lot A
+	 * Then Car is Parked in Parking Lot A
 	 */
 	@Test
 	public void giveAllParkingSlotsHaveSameSpace_whenSmartParkingBoyPark_thenParkInFirstParkingLot() {
@@ -170,10 +170,10 @@ public class ParkingLotTest {
 	/**
 	 * Given Parking Lot A has 0 available slot and Parking Lot B has 1 available slot
 	 * When A Smart Parking Boy park car
-	 * Then Car is Parking in Parking Lot B
+	 * Then Car is Parked in Parking Lot B
 	 */
 	@Test
-	public void givenParkingLotAHas0SlotAndParkingBHas1Slot_whenSmartParkingBoyPark_thenParkParkinglotB() {
+	public void givenParkingLotAHas0SlotAndParkingBHas1Slot_whenSmartParkingBoyPark_thenParkInParkingLotB() {
 		Car car1 = new Car("carA");
 		Car car2 = new Car("carB");
 		ParkingLot parkingLotA = new ParkingLot(1);
@@ -187,7 +187,27 @@ public class ParkingLotTest {
 	
 	/**
 	 * Given Parking Lot A has 3 Capacity and 1 Available Space
-	 * And Parking Lot B has 5 Capacity and 1 Available Space
+	 * And Parking Lot B has 2 Capacity and 1 Available Space
+	 * When A Super Parking Boy park car
+	 * Then Car is Parked in Parking Lot B
 	 */
+	@Test
+	public void givenParkingLotAHasHigherAvailableRate_whenSuperParkingBoyPark_thenParkInParkingLotB() {
+		Car car1 = new Car("carA");
+		Car car2 = new Car("carB");
+		Car car3 = new Car("carC");
+		Car car4 = new Car("carD");
+		ParkingLot parkingLotA = new ParkingLot(3);
+		ParkingLot parkingLotB = new ParkingLot(2);
+		List<ParkingLot> parkingLotList = Arrays.asList(parkingLotA, parkingLotB);
+		ParkingBoy smartParkingBoy = new SmartParkingBoy(parkingLotList);
+		ParkingBoy superParkingBoy = new SuperParkingBoy(parkingLotList);
+		smartParkingBoy.park(car1);
+		smartParkingBoy.park(car2);
+		smartParkingBoy.park(car3);
+		superParkingBoy.park(car4);
+		assertEquals(car4, parkingLotB.pickCar("carD"));
+		
+	}
 
 }

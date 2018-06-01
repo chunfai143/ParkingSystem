@@ -10,7 +10,14 @@ public abstract class ParkingBoy {
 		this.parkingLotList = parkingLotList;
 	}
 
-	public abstract boolean park(Car car);
+	public boolean park(Car car) {
+		prioritizeParkingLot();
+		if (parkingLotList.get(0).isFull()) {
+			return false;
+		}
+		parkingLotList.get(0).parkCar(car);
+		return true;
+	}
 
 	public Car pick(String carNumber) {
 		for (ParkingLot parkingLot : parkingLotList) {
