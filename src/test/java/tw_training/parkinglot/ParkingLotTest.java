@@ -192,7 +192,7 @@ public class ParkingLotTest {
 	 * Then Car is Parked in Parking Lot B
 	 */
 	@Test
-	public void givenParkingLotAHasHigherAvailableRate_whenSuperParkingBoyPark_thenParkInParkingLotB() {
+	public void givenParkingLotBHasHigherAvailableRate_whenSuperParkingBoyPark_thenParkInParkingLotB() {
 		Car car1 = new Car("carA");
 		Car car2 = new Car("carB");
 		Car car3 = new Car("carC");
@@ -207,7 +207,64 @@ public class ParkingLotTest {
 		smartParkingBoy.park(car3);
 		superParkingBoy.park(car4);
 		assertEquals(car4, parkingLotB.pickCar("carD"));
-		
+	}
+	
+	/**
+	 * Given Parking Lot A B both Have 1 Capacity and both Have No Available Space
+	 * When A Super Parking Boy park car
+	 * Then Car Cannot Be Parked
+	 */
+	@Test
+	public void givenAllParkingLotSameCapacityAndHaveNoAvailable_whenSuperParkingBoyPark_thenCannotParkCar() {
+		Car car1 = new Car("carA");
+		Car car2 = new Car("carB");
+		Car car3 = new Car("carC");
+		ParkingLot parkingLotA = new ParkingLot(1);
+		ParkingLot parkingLotB = new ParkingLot(1);
+		List<ParkingLot> parkingLotList = Arrays.asList(parkingLotA, parkingLotB);
+		ParkingBoy superParkingBoy = new SuperParkingBoy(parkingLotList);
+		superParkingBoy.park(car1);
+		superParkingBoy.park(car2);
+		assertFalse(superParkingBoy.park(car3));
+	}
+	
+	/**
+	 * Given Parking Lot B has 1 Capacity and 0 Available Slot
+	 * And Parking Lot A has 1 Capacity and 1 Available Slot
+	 * When A Super Parking Boy park car
+	 * Then Car is Parked in Parking Lot A
+	 */
+	@Test
+	public void givenAllParkingLotsHaveSameCapacityExceptAHasMoreAvailableSlot_whenSuperParkingBoyPark_thenParkedInParkingLotA() {
+		Car car1 = new Car("carA");
+		Car car2 = new Car("carB");
+		ParkingLot parkingLotA = new ParkingLot(1);
+		ParkingLot parkingLotB = new ParkingLot(1);
+		List<ParkingLot> parkingLotList = Arrays.asList(parkingLotB, parkingLotA);
+		ParkingBoy superParkingBoy = new SuperParkingBoy(parkingLotList);
+		superParkingBoy.park(car1);
+		superParkingBoy.park(car2);
+		assertEquals(car2, parkingLotA.pickCar("carB"));
+	}
+	
+	/**
+	 * Given Parking Lot A B both have same capacity and available Slots
+	 * When A Super Parking Boy park car
+	 * Then Car is parked in Parking Lot B
+	 */
+	@Test
+	public void givenAllParkingLotsHaveSameCapacityAndAvilableSlots_whenSuperParkingBoyPark_thenParkedInParkingLotB() {
+		Car car1 = new Car("carA");
+		Car car2 = new Car("carB");
+		Car car3 = new Car("carC");
+		ParkingLot parkingLotA = new ParkingLot(5);
+		ParkingLot parkingLotB = new ParkingLot(5);
+		List<ParkingLot> parkingLotList = Arrays.asList(parkingLotA, parkingLotB);
+		ParkingBoy superParkingBoy = new SuperParkingBoy(parkingLotList);
+		superParkingBoy.park(car1);
+		superParkingBoy.park(car2);
+		superParkingBoy.park(car3);
+		assertEquals(car3, parkingLotB.pickCar("carC"));
 	}
 
 }
