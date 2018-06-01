@@ -1,24 +1,17 @@
 package tw_training.parkinglot;
 
-public class ParkingBoy {
+import java.util.List;
+
+public abstract class ParkingBoy {
 	
-	ParkingLot parkingLot;
+	protected List<ParkingLot> parkingLotList;
 	
-	public ParkingBoy(ParkingLot parkingLot) {
-		this.parkingLot = parkingLot;
+	public ParkingBoy(List<ParkingLot> parkingLotList) {
+		this.parkingLotList = parkingLotList;
 	}
 
-	public boolean park(Car car) {
-		if (parkingLot.isFull()) {
-			return false;
-		}
-		parkingLot.parkCar(car);
-		return true;
-	}
+	public abstract boolean park(Car car);
 
-	public Car pick(String carNumber) {
-		Car car = parkingLot.pickCar(carNumber);	
-		return car;
-	}
+	public abstract Car pick(String carNumber);
 
 }

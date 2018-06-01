@@ -2,6 +2,9 @@ package tw_training.parkinglot;
 
 import static org.junit.Assert.*;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 import org.junit.Test;
 
@@ -16,7 +19,7 @@ public class ParkingLotTest {
 	public void givenACar_whenParkCar_thenCarIsParked() {
 		Car car = new Car("carA");		
 		ParkingLot parkingLot = new ParkingLot(1);
-		ParkingBoy parkingBoy = new ParkingBoy(parkingLot);
+		ParkingBoy parkingBoy = new NormalParkingBoy(Arrays.asList(parkingLot));
 		assertTrue(parkingBoy.park(car));
 	}
 	
@@ -30,7 +33,7 @@ public class ParkingLotTest {
 		Car car = new Car("carA");
 		
 		ParkingLot parkingLot = new ParkingLot(1);
-		ParkingBoy parkingBoy = new ParkingBoy(parkingLot);
+		ParkingBoy parkingBoy = new NormalParkingBoy(Arrays.asList(parkingLot));
 		parkingBoy.park(car);
 		assertTrue(parkingLot.isFull());
 	}
@@ -44,7 +47,7 @@ public class ParkingLotTest {
 	public void givenACarAndAParkingLot_whenParkCarAndParkingLotIsFull_thenCarIsNotParked() {
 		Car car = new Car("carA");
 		ParkingLot parkingLot = new ParkingLot(1);
-		ParkingBoy parkingBoy = new ParkingBoy(parkingLot);
+		ParkingBoy parkingBoy = new NormalParkingBoy(Arrays.asList(parkingLot));
 		parkingBoy.park(car);
 		assertFalse(parkingBoy.park(car));
 	}
@@ -60,7 +63,7 @@ public class ParkingLotTest {
 		
 		ParkingLot parkingLot = new ParkingLot(1);
 		
-		ParkingBoy parkingBoy = new ParkingBoy(parkingLot);
+		ParkingBoy parkingBoy = new NormalParkingBoy(Arrays.asList(parkingLot));
 		
 		parkingBoy.park(car);
 		
@@ -76,7 +79,7 @@ public class ParkingLotTest {
 	public void givenCarAlreadyPickedFromParkingLot_whenPickCarAgain_thenCannotPickCar() {
 		Car car = new Car("carA");		
 		ParkingLot parkingLot = new ParkingLot(1);		
-		ParkingBoy parkingBoy = new ParkingBoy(parkingLot);		
+		ParkingBoy parkingBoy = new NormalParkingBoy(Arrays.asList(parkingLot));		
 		parkingBoy.park(car);
 		parkingBoy.pick("carA");
 		assertNull(parkingBoy.pick("carA"));
@@ -90,7 +93,7 @@ public class ParkingLotTest {
 	@Test
 	public void givenParkingLotWithoutCar_whenPickCar_thenCannotPickCar() {
 		ParkingLot parkingLot = new ParkingLot(1);		
-		ParkingBoy parkingBoy = new ParkingBoy(parkingLot);		
+		ParkingBoy parkingBoy = new NormalParkingBoy(Arrays.asList(parkingLot));		
 		assertNull(parkingBoy.pick("carA"));
 	}
 
@@ -99,15 +102,32 @@ public class ParkingLotTest {
 	 * When I park two car to parking lot
 	 * Then I can pick cars from the parking lot
 	 */
+	@Test
 	public void givenParkingLotWithTwoSpace_whenParkTwoCars_thenCanPickCars() {
 		Car car1 = new Car("carA");
 		Car car2 = new Car("carB");
 		ParkingLot parkingLot = new ParkingLot(2);		
-		ParkingBoy parkingBoy = new ParkingBoy(parkingLot);		
+		ParkingBoy parkingBoy = new NormalParkingBoy(Arrays.asList(parkingLot));		
 		parkingBoy.park(car1);
 		parkingBoy.park(car2);
 		assertEquals(car1, parkingBoy.pick("carA"));
 		assertEquals(car2, parkingBoy.pick("carB"));
 	}
-
+	
+	/**
+	 * Given Parking Lot A has 3 available slots and Parking Lot B has 5 available slots
+	 * When A Smart Parking Boy park car
+	 * Then Car will be parked in Parking Lot B
+	 */
+//	@Test
+//	public void givenParkingLotAWith3SpaceAndParkingLotBWith5Space_whenSmartParkingBoyPark_thenCarIsParkedInLotB() {
+//		Car car1 = new Car("carA");
+//		ParkingLot parkingLotA = new ParkingLot(3);
+//		ParkingLot parkingLotB = new ParkingLot(5);
+//		List<ParkingLot> parkingLotList = Arrays.asList(parkingLotA, parkingLotB);
+//		ParkingBoy parkingBoy = new SmartParkingBoy(parkingLotList);
+//		parkingBoy.park(car1);
+//		assertEquals(car1, parkingLotB.pickCar("carA"));
+//	}
+	
 }
