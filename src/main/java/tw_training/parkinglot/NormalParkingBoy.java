@@ -19,4 +19,9 @@ public class NormalParkingBoy extends ParkingBoy {
 		return false;
 	}
 
+	@Override
+	protected void prioritizeParkingLot() {
+		return;	
+	}
+
 }

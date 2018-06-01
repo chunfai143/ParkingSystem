@@ -1,8 +1,10 @@
 package tw_training.parkinglot;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertTrue;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -131,7 +133,7 @@ public class ParkingLotTest {
 	}
 	
 	/**
-	 * Given Parking Lot A B Both has 0 available slot
+	 * Given Parking Lot A B Both have 0 available slot
 	 * When A Smart Parking Boy park car
 	 * Then Cannot Park Car
 	 */
@@ -149,4 +151,43 @@ public class ParkingLotTest {
 		assertFalse(parkingBoy.park(car3));
 	}
 	
+	/**
+	 * Given Parking Lot A B Both have same available slot
+	 * When A Smart Parking Boy park car
+	 * Then Car is Parking in Parking Lot A
+	 */
+	@Test
+	public void giveAllParkingSlotsHaveSameSpace_whenSmartParkingBoyPark_thenParkInFirstParkingLot() {
+		Car car1 = new Car("carA");
+		ParkingLot parkingLotA = new ParkingLot(1);
+		ParkingLot parkingLotB = new ParkingLot(1);
+		List<ParkingLot> parkingLotList = Arrays.asList(parkingLotA, parkingLotB);
+		ParkingBoy parkingBoy = new SmartParkingBoy(parkingLotList);
+		parkingBoy.park(car1);
+		assertEquals(car1, parkingLotA.pickCar("carA"));
+	}
+	
+	/**
+	 * Given Parking Lot A has 0 available slot and Parking Lot B has 1 available slot
+	 * When A Smart Parking Boy park car
+	 * Then Car is Parking in Parking Lot B
+	 */
+	@Test
+	public void givenParkingLotAHas0SlotAndParkingBHas1Slot_whenSmartParkingBoyPark_thenParkParkinglotB() {
+		Car car1 = new Car("carA");
+		Car car2 = new Car("carB");
+		ParkingLot parkingLotA = new ParkingLot(1);
+		ParkingLot parkingLotB = new ParkingLot(1);
+		List<ParkingLot> parkingLotList = Arrays.asList(parkingLotA, parkingLotB);
+		ParkingBoy parkingBoy = new SmartParkingBoy(parkingLotList);
+		parkingBoy.park(car1);
+		parkingBoy.park(car2);
+		assertEquals(car2, parkingLotB.pickCar("carB"));
+	}
+	
+	/**
+	 * Given Parking Lot A has 3 Capacity and 1 Available Space
+	 * And Parking Lot B has 5 Capacity and 1 Available Space
+	 */
+
 }

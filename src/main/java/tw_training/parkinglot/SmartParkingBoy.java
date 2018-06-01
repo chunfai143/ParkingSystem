@@ -1,6 +1,5 @@
 package tw_training.parkinglot;
 
-import java.util.Comparator;
 import java.util.List;
 
 public class SmartParkingBoy extends ParkingBoy {
@@ -12,20 +11,17 @@ public class SmartParkingBoy extends ParkingBoy {
 	@Override
 	public boolean park(Car car) {
 		prioritizeParkingLot();
-		if(parkingLotList.get(0).isFull()) {
+		if (parkingLotList.get(0).isFull()) {
 			return false;
 		}
 		parkingLotList.get(0).parkCar(car);
 		return true;
 	}
-	
-	private void prioritizeParkingLot() {
-		parkingLotList.sort(new Comparator<ParkingLot>() {
-			@Override
-			public int compare(ParkingLot parkingLot1, ParkingLot parkingLot2) {
-				return parkingLot2.getAvailableSpace() - parkingLot1.getAvailableSpace();
-			}
-		});
+
+	@Override
+	protected void prioritizeParkingLot() {
+		parkingLotList.sort((parkingLot1, parkingLot2) -> 
+				parkingLot2.getAvailableSpace() - parkingLot1.getAvailableSpace());
 	}
 
 }
