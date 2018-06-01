@@ -1,6 +1,7 @@
 package tw_training.parkinglot;
 
 import java.util.List;
+import java.util.OptionalInt;
 
 public abstract class ParkingBoy {
 
@@ -28,9 +29,10 @@ public abstract class ParkingBoy {
 
 	public Car pick(String carNumber) {
 		for (ParkingLot parkingLot : parkingLotList) {
-			Car car = parkingLot.pickCar(carNumber);
-			if (car != null) {
-				return car;
+			OptionalInt targetCarIndex = parkingLot.getCarIndex(carNumber);
+			
+			if(targetCarIndex.isPresent()) {
+				return parkingLot.getCarList().remove(targetCarIndex.getAsInt());
 			}
 		}
 		return null;

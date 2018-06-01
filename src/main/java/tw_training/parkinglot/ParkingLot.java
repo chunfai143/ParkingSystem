@@ -17,17 +17,19 @@ public class ParkingLot {
 	public void parkCar(Car car) {
 		this.carList.add(car);
 	}
-
-	public Car pickCar(String carNumber) {		
-		OptionalInt targetCarIndex = IntStream.range(0,  carList.size())
+	
+	public OptionalInt getCarIndex(String carNumber) {		
+		return IntStream.range(0,  carList.size())
 				.filter(index -> carNumber.equals(carList.get(index).getCarNumber()))
 				.findFirst();
-		
-		if (!targetCarIndex.isPresent()) {
-			return null;
-		}
-		
-		return carList.remove(targetCarIndex.getAsInt());
+	}
+	
+	public boolean containsCar(String carNumber) {
+		return getCarIndex(carNumber).isPresent();
+	}
+	
+	public List<Car> getCarList() {
+		return carList;
 	}
 
 	public boolean isFull() {

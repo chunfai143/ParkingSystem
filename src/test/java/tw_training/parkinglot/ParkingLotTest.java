@@ -137,7 +137,7 @@ public class ParkingLotTest {
 		
 		parkingBoy.park(car1);
 		
-		assertEquals(car1, parkingLotB.pickCar("carA"));
+		assertTrue(parkingLotB.containsCar("carA"));
 	}
 	
 	/**
@@ -176,7 +176,7 @@ public class ParkingLotTest {
 		
 		parkingBoy.park(car1);
 		
-		assertEquals(car1, parkingLotA.pickCar("carA"));
+		assertTrue(parkingLotA.containsCar("carA"));
 	}
 	
 	/**
@@ -196,7 +196,7 @@ public class ParkingLotTest {
 		parkingBoy.park(car1);
 		parkingBoy.park(car2);
 		
-		assertEquals(car2, parkingLotB.pickCar("carB"));
+		assertTrue(parkingLotB.containsCar("carB"));
 	}
 	
 	/**
@@ -222,7 +222,7 @@ public class ParkingLotTest {
 		smartParkingBoy.park(car3);
 		superParkingBoy.park(car4);
 		
-		assertEquals(car4, parkingLotB.pickCar("carD"));
+		assertTrue(parkingLotB.containsCar("carD"));
 	}
 	
 	/**
@@ -264,7 +264,7 @@ public class ParkingLotTest {
 		superParkingBoy.park(car1);
 		superParkingBoy.park(car2);
 		
-		assertEquals(car2, parkingLotA.pickCar("carB"));
+		assertTrue(parkingLotA.containsCar("carB"));
 	}
 	
 	/**
@@ -286,7 +286,7 @@ public class ParkingLotTest {
 		superParkingBoy.park(car2);
 		superParkingBoy.park(car3);
 		
-		assertEquals(car3, parkingLotB.pickCar("carC"));
+		assertTrue(parkingLotB.containsCar("carC"));
 	}
 	
 	/**
