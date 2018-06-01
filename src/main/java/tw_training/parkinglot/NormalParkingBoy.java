@@ -15,7 +15,7 @@ public class NormalParkingBoy extends ParkingBoy {
 		for(ParkingLot parkingLot : parkingLotList) {
 			if (!parkingLot.isFull()) {
 				parkingLot.parkCar(car);
-				return issueReceipt(car.getCarNumber(), this);
+				return issueReceipt(car.getCarNumber());
 			}
 		}
 		return null;
@@ -24,11 +24,6 @@ public class NormalParkingBoy extends ParkingBoy {
 	@Override
 	protected void prioritizeParkingLot() {
 		return;	
-	}
-
-	@Override
-	protected ParkingBoy getIssuer() {
-		return this;
 	}
 
 }

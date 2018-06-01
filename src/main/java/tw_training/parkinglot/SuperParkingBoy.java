@@ -20,9 +20,4 @@ public class SuperParkingBoy extends ParkingBoy {
 		return result < 0 ? -1 : result == 0 ? 0 : 1; 
 	}
 
-	@Override
-	protected ParkingBoy getIssuer() {
-		return this;
-	}
-
 }

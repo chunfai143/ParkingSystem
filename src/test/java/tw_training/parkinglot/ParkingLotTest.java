@@ -341,8 +341,35 @@ public class ParkingLotTest {
 		ParkingBoy parkingManager = new ParkingManager(parkingLotList, Arrays.asList(normalParkingBoy, superParkingBoy));
 		
 		Receipt receipt1 = parkingManager.park(car1);
+		
 		assertEquals("carA", receipt1.getCarNumber());
 		assertEquals(superParkingBoy.getId(), receipt1.getIssuerId());
+	}
+	
+	/**
+	 * Given Parking Manager manages a Normal Parking Boy and a Smart Parking Boy 
+	 * And Smart Parking Boy has no available slot
+	 * When a Parking Manager park car
+	 * Then car is parked by Normal parking boy
+	 */
+	@Test
+	public void givenParkingManagerManagesANormalParkingBoyAndASmartParkingBoyWithNoSlot_whenParkingManagerParkCar_thenCarIsParkedByNormalParkingBoy() {
+		Car car1 = new Car("carA");
+		Car car2 = new Car("carB");
+		ParkingLot parkingLotForNormal = new ParkingLot(1);
+		ParkingLot parkingLotForSmart = new ParkingLot(1);
+		List<ParkingLot> parkingLotListForNormal = Arrays.asList(parkingLotForNormal);
+		List<ParkingLot> parkingLotListForSmart = Arrays.asList(parkingLotForSmart);
+		ParkingBoy smartParkingBoy = new SmartParkingBoy(parkingLotListForSmart);
+		ParkingBoy normalParkingBoy = new NormalParkingBoy(parkingLotListForNormal);
+		List<ParkingLot> parkingLotListForManager = Arrays.asList(parkingLotForNormal, parkingLotForSmart);
+		ParkingBoy parkingManager = new ParkingManager(parkingLotListForManager, Arrays.asList(normalParkingBoy, smartParkingBoy));
+		
+		smartParkingBoy.park(car1);
+		Receipt receipt1 = parkingManager.park(car2);
+		
+		assertEquals("carB", receipt1.getCarNumber());
+		assertEquals(normalParkingBoy.getId(), receipt1.getIssuerId());
 	}
 
 }

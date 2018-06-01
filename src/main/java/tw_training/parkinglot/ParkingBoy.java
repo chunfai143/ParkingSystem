@@ -14,15 +14,17 @@ public abstract class ParkingBoy {
 	}
 
 	public Receipt park(Car car) {
-		prioritizeParkingLot();
-		if (parkingLotList.get(0).isFull()) {
+		if (!hasSlot()) {
 			return null;
 		}
 		parkingLotList.get(0).parkCar(car);
-		return issueReceipt(car.getCarNumber(), getIssuer());
+		return issueReceipt(car.getCarNumber());
 	}
-
-	protected abstract ParkingBoy getIssuer();
+	
+	public boolean hasSlot() {
+		prioritizeParkingLot();
+		return !parkingLotList.get(0).isFull();	
+	}
 
 	public Car pick(String carNumber) {
 		for (ParkingLot parkingLot : parkingLotList) {
@@ -44,9 +46,12 @@ public abstract class ParkingBoy {
 		return this.id;
 	}
 	
-	protected Receipt issueReceipt(String carNumber, ParkingBoy issuer) {
-		System.out.println(issuer.getClass().getSimpleName());
-		return new Receipt(carNumber, issuer.getId());
+	public List<ParkingLot> getParkingLotList() {
+		return parkingLotList;
+	}
+
+	protected Receipt issueReceipt(String carNumber) {
+		return new Receipt(carNumber, this.id);
 	}
 
 }

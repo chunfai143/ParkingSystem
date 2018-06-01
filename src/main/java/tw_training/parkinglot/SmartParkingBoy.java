@@ -16,9 +16,4 @@ public class SmartParkingBoy extends ParkingBoy {
 				parkingLot2.getAvailableSpace() - parkingLot1.getAvailableSpace());
 	}
 
-	@Override
-	protected ParkingBoy getIssuer() {
-		return this;
-	}
-
 }

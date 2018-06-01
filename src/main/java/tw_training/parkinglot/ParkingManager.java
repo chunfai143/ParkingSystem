@@ -12,18 +12,19 @@ public class ParkingManager extends SuperParkingBoy {
 		this.id = this.hashCode();
 	}
 	
+	
+
 	@Override
 	public Receipt park(Car car) {
 		prioritizeParkingBoy();
-		ParkingBoy issuer = null;
-		if (!parkingBoyList.isEmpty()) {
-			issuer = parkingBoyList.get(0);
-		}
-		if (issuer == null) {
-			return super.park(car);
-		}
-		return issuer.park(car);
+		ParkingBoy parkingBoy = parkingBoyList.stream()
+				.filter(ParkingBoy::hasSlot)
+				.findFirst()
+				.orElse(null);		
+		return parkingBoy == null? super.park(car) : parkingBoy.park(car);
 	}
+
+
 
 	private void prioritizeParkingBoy() {
 		parkingBoyList.sort((parkingBoy1, parkingBoy2) -> 
