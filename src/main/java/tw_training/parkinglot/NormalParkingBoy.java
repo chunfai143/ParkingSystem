@@ -7,6 +7,7 @@ public class NormalParkingBoy extends ParkingBoy {
 	public NormalParkingBoy(List<ParkingLot> parkingLotList) {
 		super(parkingLotList);
 		this.rank = 1;
+		this.id = this.hashCode();
 	}
 
 	@Override
@@ -14,7 +15,7 @@ public class NormalParkingBoy extends ParkingBoy {
 		for(ParkingLot parkingLot : parkingLotList) {
 			if (!parkingLot.isFull()) {
 				parkingLot.parkCar(car);
-				return super.issueReceipt(car.getCarNumber());
+				return issueReceipt(car.getCarNumber(), this);
 			}
 		}
 		return null;
@@ -23,6 +24,11 @@ public class NormalParkingBoy extends ParkingBoy {
 	@Override
 	protected void prioritizeParkingLot() {
 		return;	
+	}
+
+	@Override
+	protected ParkingBoy getIssuer() {
+		return this;
 	}
 
 }

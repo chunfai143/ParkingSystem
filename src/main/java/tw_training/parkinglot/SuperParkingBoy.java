@@ -7,6 +7,7 @@ public class SuperParkingBoy extends ParkingBoy {
 	public SuperParkingBoy(List<ParkingLot> parkingLotList) {
 		super(parkingLotList);
 		this.rank = 3;
+		this.id = this.hashCode();
 	}
 
 	@Override
@@ -17,6 +18,11 @@ public class SuperParkingBoy extends ParkingBoy {
 	private static int sortByAvailableRateDesc(ParkingLot parkingLotA, ParkingLot parkingLotB) {
 		double result = parkingLotB.getAvailableRate() - parkingLotA.getAvailableRate();
 		return result < 0 ? -1 : result == 0 ? 0 : 1; 
+	}
+
+	@Override
+	protected ParkingBoy getIssuer() {
+		return this;
 	}
 
 }

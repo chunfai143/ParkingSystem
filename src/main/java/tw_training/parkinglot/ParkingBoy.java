@@ -19,8 +19,10 @@ public abstract class ParkingBoy {
 			return null;
 		}
 		parkingLotList.get(0).parkCar(car);
-		return issueReceipt(car.getCarNumber());
+		return issueReceipt(car.getCarNumber(), getIssuer());
 	}
+
+	protected abstract ParkingBoy getIssuer();
 
 	public Car pick(String carNumber) {
 		for (ParkingLot parkingLot : parkingLotList) {
@@ -42,8 +44,9 @@ public abstract class ParkingBoy {
 		return this.id;
 	}
 	
-	protected Receipt issueReceipt(String carNumber) {
-		return new Receipt(carNumber, this.getId());
+	protected Receipt issueReceipt(String carNumber, ParkingBoy issuer) {
+		System.out.println(issuer.getClass().getSimpleName());
+		return new Receipt(carNumber, issuer.getId());
 	}
 
 }

@@ -1,7 +1,6 @@
 package tw_training.parkinglot;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
@@ -305,7 +304,26 @@ public class ParkingLotTest {
 		Receipt receipt1 = parkingManager.park(car1);
 		
 		assertEquals("carA", receipt1.getCarNumber());
-		assertEquals(parkingManager.hashCode(), receipt1.getIssuerId());
+		assertEquals(parkingManager.getId(), receipt1.getIssuerId());
+	}
+	
+	/**
+	 * Given Parking Manage manages a Normal Parking Boy
+	 * When a Parking Manager park car
+	 * Then car is parked by Normal Parking Boy
+	 */
+	@Test
+	public void givenParkingManagerManagesANormalParkingBoy_whenParkingManagerParkCar_thenCarIsParkedByNormalParkingBoy() {
+		Car car1 = new Car("carA");
+		ParkingLot parkingLotA = new ParkingLot(5);
+		List<ParkingLot> parkingLotList = Arrays.asList(parkingLotA);
+		ParkingBoy normalParkingBoy = new NormalParkingBoy(parkingLotList);
+		ParkingBoy parkingManager = new ParkingManager(parkingLotList, Arrays.asList(normalParkingBoy));
+		
+		Receipt receipt1 = parkingManager.park(car1);
+		
+		assertEquals("carA", receipt1.getCarNumber());
+		assertEquals(normalParkingBoy.getId(), receipt1.getIssuerId());
 	}
 
 }

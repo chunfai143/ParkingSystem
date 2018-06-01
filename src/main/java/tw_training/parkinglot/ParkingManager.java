@@ -1,6 +1,5 @@
 package tw_training.parkinglot;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class ParkingManager extends SuperParkingBoy {
@@ -9,17 +8,21 @@ public class ParkingManager extends SuperParkingBoy {
 
 	public ParkingManager(List<ParkingLot> parkingLotList, List<ParkingBoy> parkingBoyList) {
 		super(parkingLotList);
-		this.parkingBoyList = new ArrayList<>();
-		this.parkingBoyList.addAll(parkingBoyList);
+		this.parkingBoyList = parkingBoyList;
+		this.id = this.hashCode();
 	}
 	
 	@Override
 	public Receipt park(Car car) {
 		prioritizeParkingBoy();
-		if(!parkingBoyList.isEmpty()) {			
-			parkingBoyList.get(0).park(car);
+		ParkingBoy issuer = null;
+		if (!parkingBoyList.isEmpty()) {
+			issuer = parkingBoyList.get(0);
 		}
-		return super.park(car);
+		if (issuer == null) {
+			return super.park(car);
+		}
+		return issuer.park(car);
 	}
 
 	private void prioritizeParkingBoy() {
