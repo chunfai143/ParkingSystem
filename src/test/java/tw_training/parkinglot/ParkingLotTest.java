@@ -308,7 +308,7 @@ public class ParkingLotTest {
 	}
 	
 	/**
-	 * Given Parking Manage manages a Normal Parking Boy
+	 * Given Parking Manager manages a Normal Parking Boy
 	 * When a Parking Manager park car
 	 * Then car is parked by Normal Parking Boy
 	 */
@@ -324,6 +324,25 @@ public class ParkingLotTest {
 		
 		assertEquals("carA", receipt1.getCarNumber());
 		assertEquals(normalParkingBoy.getId(), receipt1.getIssuerId());
+	}
+	
+	/**
+	 * Given Parking Manager manages a Normal Parking Boy and a Super Parking Boy
+	 * When a Parking Manager park car
+	 * Then car is parked by super parking boy
+	 */
+	@Test
+	public void givenParkingManagerMangesANormalParkingBoyAndSuperParkingBoy_whenParkingManagerParkCar_thenCarIsParkedBySuperParkingBoy() {
+		Car car1 = new Car("carA");
+		ParkingLot parkingLotA = new ParkingLot(5);
+		List<ParkingLot> parkingLotList = Arrays.asList(parkingLotA);
+		ParkingBoy normalParkingBoy = new NormalParkingBoy(parkingLotList);
+		ParkingBoy superParkingBoy = new SuperParkingBoy(parkingLotList);
+		ParkingBoy parkingManager = new ParkingManager(parkingLotList, Arrays.asList(normalParkingBoy, superParkingBoy));
+		
+		Receipt receipt1 = parkingManager.park(car1);
+		assertEquals("carA", receipt1.getCarNumber());
+		assertEquals(superParkingBoy.getId(), receipt1.getIssuerId());
 	}
 
 }
