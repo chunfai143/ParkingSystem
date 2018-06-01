@@ -1,10 +1,9 @@
 package tw_training.parkinglot;
 
+import java.util.Comparator;
 import java.util.List;
 
 public class SmartParkingBoy extends ParkingBoy {
-	
-	List<ParkingLot> parkingLotList;
 
 	public SmartParkingBoy(List<ParkingLot> parkingLotList) {
 		super(parkingLotList);
@@ -12,14 +11,21 @@ public class SmartParkingBoy extends ParkingBoy {
 
 	@Override
 	public boolean park(Car car) {
-		// TODO Auto-generated method stub
-		return false;
+		prioritizeParkingLot();
+		if(parkingLotList.get(0).isFull()) {
+			return false;
+		}
+		parkingLotList.get(0).parkCar(car);
+		return true;
 	}
-
-	@Override
-	public Car pick(String carNumber) {
-		// TODO Auto-generated method stub
-		return null;
+	
+	private void prioritizeParkingLot() {
+		parkingLotList.sort(new Comparator<ParkingLot>() {
+			@Override
+			public int compare(ParkingLot parkingLot1, ParkingLot parkingLot2) {
+				return parkingLot2.getAvailableSpace() - parkingLot1.getAvailableSpace();
+			}
+		});
 	}
 
 }

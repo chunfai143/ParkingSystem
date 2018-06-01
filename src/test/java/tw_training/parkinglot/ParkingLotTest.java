@@ -119,15 +119,34 @@ public class ParkingLotTest {
 	 * When A Smart Parking Boy park car
 	 * Then Car will be parked in Parking Lot B
 	 */
-//	@Test
-//	public void givenParkingLotAWith3SpaceAndParkingLotBWith5Space_whenSmartParkingBoyPark_thenCarIsParkedInLotB() {
-//		Car car1 = new Car("carA");
-//		ParkingLot parkingLotA = new ParkingLot(3);
-//		ParkingLot parkingLotB = new ParkingLot(5);
-//		List<ParkingLot> parkingLotList = Arrays.asList(parkingLotA, parkingLotB);
-//		ParkingBoy parkingBoy = new SmartParkingBoy(parkingLotList);
-//		parkingBoy.park(car1);
-//		assertEquals(car1, parkingLotB.pickCar("carA"));
-//	}
+	@Test
+	public void givenParkingLotAWith3SpaceAndParkingLotBWith5Space_whenSmartParkingBoyPark_thenCarIsParkedInLotB() {
+		Car car1 = new Car("carA");
+		ParkingLot parkingLotA = new ParkingLot(3);
+		ParkingLot parkingLotB = new ParkingLot(5);
+		List<ParkingLot> parkingLotList = Arrays.asList(parkingLotA, parkingLotB);
+		ParkingBoy parkingBoy = new SmartParkingBoy(parkingLotList);
+		parkingBoy.park(car1);
+		assertEquals(car1, parkingLotB.pickCar("carA"));
+	}
+	
+	/**
+	 * Given Parking Lot A B Both has 0 available slot
+	 * When A Smart Parking Boy park car
+	 * Then Cannot Park Car
+	 */
+	@Test
+	public void giveAllParkingSlotsHaveNoSpace_whenSmartParkingBoyPark_thenCannotParkCar() {
+		Car car1 = new Car("carA");
+		Car car2 = new Car("carB");
+		Car car3 = new Car("carC");
+		ParkingLot parkingLotA = new ParkingLot(1);
+		ParkingLot parkingLotB = new ParkingLot(1);
+		List<ParkingLot> parkingLotList = Arrays.asList(parkingLotA, parkingLotB);
+		ParkingBoy parkingBoy = new SmartParkingBoy(parkingLotList);
+		parkingBoy.park(car1);
+		parkingBoy.park(car2);
+		assertFalse(parkingBoy.park(car3));
+	}
 	
 }

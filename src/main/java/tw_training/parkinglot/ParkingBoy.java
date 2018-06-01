@@ -12,6 +12,14 @@ public abstract class ParkingBoy {
 
 	public abstract boolean park(Car car);
 
-	public abstract Car pick(String carNumber);
+	public Car pick(String carNumber) {
+		for(ParkingLot parkingLot : parkingLotList) {
+			Car car = parkingLot.pickCar(carNumber);
+			if(car != null)
+				return car;
+			
+		}
+		return null;
+	}
 
 }

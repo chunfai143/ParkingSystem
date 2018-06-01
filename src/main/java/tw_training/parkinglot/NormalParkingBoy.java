@@ -18,15 +18,5 @@ public class NormalParkingBoy extends ParkingBoy {
 		}
 		return false;
 	}
-	
-	@Override
-	public Car pick(String carNumber) {
-		for(ParkingLot parkingLot : parkingLotList) {
-			Car car = parkingLot.pickCar(carNumber);
-			if(car != null)
-				return car;
-			
-		}
-		return null;
-	}
+
 }

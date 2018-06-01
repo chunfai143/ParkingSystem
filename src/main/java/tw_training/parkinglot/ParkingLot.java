@@ -2,7 +2,6 @@ package tw_training.parkinglot;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 import java.util.OptionalInt;
 import java.util.stream.IntStream;
 
@@ -10,8 +9,6 @@ public class ParkingLot {
 
 	List<Car> carList = new ArrayList<>();
 	int capacity;
-
-	boolean isFull;
 
 	public ParkingLot(int capacity) {
 		this.capacity = capacity;
@@ -35,6 +32,10 @@ public class ParkingLot {
 
 	public boolean isFull() {
 		return carList.size() == capacity;
+	}
+
+	public int getAvailableSpace() {
+		return capacity - carList.size();
 	}
 
 }
